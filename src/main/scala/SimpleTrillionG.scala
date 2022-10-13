@@ -38,8 +38,8 @@ object SimpleTrillionG extends Serializable {
     val degreeRDD = vertexRDD.map(vertexId => (vertexId, ds.value.getExpectedDegree(vertexId)))
     val partitionedVertexRDD = degreeRDD.rangePartition(machines, numVertices, numEdges)
     val edges = partitionedVertexRDD.doRecVecGen(ds, rng)
-//    edges.saveAsHadoopFile(path, classOf[LongWritable], classOf[LongOpenHashBigSet], classOf[TSVOutputFormat])
-    edges.saveAsTextFile(path)
+    edges.saveAsHadoopFile(path, classOf[LongWritable], classOf[LongOpenHashBigSet], classOf[TSVOutputFormat])
+//    edges.saveAsTextFile(path)
 
     println(s"Generation completed. ${(System.currentTimeMillis() - startTime) / 1000f} seconds spent.")
 
